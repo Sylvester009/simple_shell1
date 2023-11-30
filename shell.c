@@ -29,8 +29,6 @@ int main(void)
             input[len - 1] = '\0';
         }
 
-        tokenize(input, args);
-
         pid = fork();
 
         if (pid == -1)
@@ -41,6 +39,8 @@ int main(void)
         else if (pid == 0)
         {
             /** Child process */
+            tokenize(input, args);
+            
             execve(args[0], args, env);
 
             /** If execve fails*/
