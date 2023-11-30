@@ -35,13 +35,14 @@ int main(void)
         else if (pid == 0)
         {
             /** Child process */
-
+            char *args[2];
+            args[0] = input;
+            args[1] = NULL;
             /** Split the command into arguments*/
-            char *args[] = {input, NULL};
-
-            /** Specify the environment*/
             char *env[] = {NULL};
 
+            /** Specify the environment*/
+            
             execve(input, args, env);
 
             /** If execve fails*/
