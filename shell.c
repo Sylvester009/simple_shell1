@@ -2,7 +2,7 @@
 
 void d_prompt();
 
-int main(void())
+int main(void)
 {
     char input[MAX_SIZE];
     size_t len;
@@ -28,7 +28,7 @@ int main(void())
         }
 
         char *args[MAX_SIZE]; /**Assuming a maximum number of arguments*/
-        tokenize(input, args);
+        tokenize_input(input, args);
 
         pid = fork();
 
