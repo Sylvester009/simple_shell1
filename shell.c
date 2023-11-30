@@ -9,6 +9,8 @@ int main(void)
     pid_t pid;
     int status;
 
+    char *args[MAX_SIZE]; /**Assuming a maximum number of arguments*/
+
     char *env[] = {NULL};
 
     while (1)
@@ -27,8 +29,7 @@ int main(void)
             input[len - 1] = '\0';
         }
 
-        char *args[MAX_SIZE]; /**Assuming a maximum number of arguments*/
-        tokenize_input(input, args);
+        tokenize(input, args);
 
         pid = fork();
 
