@@ -1,6 +1,6 @@
 #include "main.h"
 
-void display_prompt();
+void d_prompt();
 
 int main(void)
 {
@@ -13,7 +13,7 @@ int main(void)
 
     while (1)
     {
-        display_prompt();
+        d_prompt();
 
         if (fgets(input, sizeof(input), stdin) == NULL)
         {
@@ -27,6 +27,9 @@ int main(void)
             input[len - 1] = '\0';
         }
 
+        char *args[MAX_SIZE]; /**Assuming a maximum number of arguments*/
+        tokenize(input, args);
+
         pid = fork();
 
         if (pid == -1)
@@ -37,13 +40,7 @@ int main(void)
         else if (pid == 0)
         {
             /** Child process */
-            char *args[2];
-            args[0] = input;
-            args[1] = NULL;
-
-            /** Specify the environment*/
-            
-            execve(input, args, env);
+            execve(args[0], args, env);
 
             /** If execve fails*/
             perror("execve");
@@ -70,7 +67,7 @@ int main(void)
     return 0;
 }
 
-void display_prompt()
+void d_prompt()
 {
     printf("$ ");
     fflush(stdout);

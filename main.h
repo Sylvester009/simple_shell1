@@ -10,4 +10,6 @@
 
 #define MAX_SIZE 1024
 
+void tokenize(char *input, char *args[])
+
 #endif
