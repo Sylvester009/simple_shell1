@@ -2,7 +2,7 @@
 
 void d_prompt();
 
-int main(void)
+int main(void())
 {
     char input[MAX_SIZE];
     size_t len;
