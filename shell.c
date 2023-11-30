@@ -9,6 +9,8 @@ int main(void)
     pid_t pid;
     int status;
 
+    char *env[] = {NULL};
+
     while (1)
     {
         display_prompt();
@@ -38,8 +40,6 @@ int main(void)
             char *args[2];
             args[0] = input;
             args[1] = NULL;
-            /** Split the command into arguments*/
-            char *env[] = {NULL};
 
             /** Specify the environment*/
             
