@@ -1,6 +1,6 @@
 #include "main.h"
 
-void tokenize_input(char *input, char *args[])
+void tokenize(char *input, char *args[])
 {
     char *token = strtok(input, " ");
     int i = 0;
