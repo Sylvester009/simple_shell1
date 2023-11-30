@@ -1,6 +1,6 @@
 #include "main.h"
 
-void d_prompt();
+void prompt();
 
 int main(void)
 {
@@ -15,7 +15,7 @@ int main(void)
 
     while (1)
     {
-        d_prompt();
+        prompt();
 
         if (fgets(input, sizeof(input), stdin) == NULL)
         {
@@ -29,6 +29,8 @@ int main(void)
             input[len - 1] = '\0';
         }
 
+        if (access(input, X_OK) == 0)
+        {
         pid = fork();
 
         if (pid == -1)
@@ -64,11 +66,16 @@ int main(void)
             }
         }
     }
+        else
+        {
+            printf("Command not found: %s\n", input);
+        }
+    }
 
     return 0;
 }
 
-void d_prompt()
+void prompt()
 {
     printf("$ ");
     fflush(stdout);
