@@ -41,6 +41,9 @@ int main(void)
             else if (pid == 0)
             {
                 /** Child process */
+                 args[0] = "/bin/ls";
+                args[1] = NULL;
+                
                 execve("/bin/ls", args, env);
 
                 /** If execve fails */
@@ -109,6 +112,7 @@ int main(void)
 
     return 0;
 }
+
 
 void d_prompt()
 {
