@@ -103,7 +103,7 @@ int main(void)
         }
         else
         {
-            printf("No such file or directory %s\n", input);
+            printf("No such file or directory \n");
         }
     }
 
