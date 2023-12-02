@@ -1,6 +1,6 @@
 #include "main.h"
 
-void prompt();
+void d_prompt();
 
 int main(void)
 {
@@ -9,13 +9,13 @@ int main(void)
     pid_t pid;
     int status;
 
-    char *args[MAX_SIZE]; /**Assuming a maximum number of arguments*/
+    char *args[MAX_SIZE]; /** Assuming a maximum number of arguments */
 
     char *env[] = {NULL};
 
     while (1)
     {
-        prompt();
+        d_prompt();
 
         if (fgets(input, sizeof(input), stdin) == NULL)
         {
@@ -29,53 +29,88 @@ int main(void)
             input[len - 1] = '\0';
         }
 
-        if (access(input, X_OK) == 0)
+        if (strcmp(input, "/bin/ls") == 0)
         {
-        pid = fork();
+            pid = fork();
 
-        if (pid == -1)
-        {
-            perror("fork");
-            exit(EXIT_FAILURE);
+            if (pid == -1)
+            {
+                perror("fork");
+                exit(EXIT_FAILURE);
+            }
+            else if (pid == 0)
+            {
+                /** Child process */
+                execve("/bin/ls", args, env);
+
+                /** If execve fails */
+                perror("execve");
+                exit(EXIT_FAILURE);
+            }
+            else
+            {
+                /** Parent process */
+                waitpid(pid, &status, 0);
+
+                if (WIFEXITED(status))
+                {
+                    /** Child process terminated normally */
+                    printf("Child process exited with status %d\n", WEXITSTATUS(status));
+                }
+                else if (WIFSIGNALED(status))
+                {
+                    /** Child process terminated by a signal */
+                    printf("Child process terminated by signal %d\n", WTERMSIG(status));
+                }
+            }
         }
-        else if (pid == 0)
+        else if (access(input, X_OK) == 0)
         {
-            /** Child process */
-            tokenize(input, args);
-            
-            execve(args[0], args, env);
+            pid = fork();
 
-            /** If execve fails*/
-            perror("execve");
-            exit(EXIT_FAILURE);
+            if (pid == -1)
+            {
+                perror("fork");
+                exit(EXIT_FAILURE);
+            }
+            else if (pid == 0)
+            {
+                /** Child process */
+                tokenize(input, args);
+
+                execve(args[0], args, env);
+
+                /** If execve fails */
+                perror("execve");
+                exit(EXIT_FAILURE);
+            }
+            else
+            {
+                /** Parent process */
+                waitpid(pid, &status, 0);
+
+                if (WIFEXITED(status))
+                {
+                    /** Child process terminated normally */
+                    printf("Child process exited with status %d\n", WEXITSTATUS(status));
+                }
+                else if (WIFSIGNALED(status))
+                {
+                    /** Child process terminated by a signal */
+                    printf("Child process terminated by signal %d\n", WTERMSIG(status));
+                }
+            }
         }
         else
         {
-            /** Parent process*/
-            waitpid(pid, &status, 0);
-
-            if (WIFEXITED(status))
-            {
-                /** Child process terminated normally*/
-                printf("Child process exited with status %d\n", WEXITSTATUS(status));
-            }
-            else if (WIFSIGNALED(status))
-            {
-                /**Child process terminated by a signal*/
-                printf("Child process terminated by signal %d\n", WTERMSIG(status));
-            }
-        }
-    }
-        else
-        {
-            printf("Command not found: %s\n", input);
+            printf(" No such file or directory");
         }
     }
 
     return 0;
 }
 
-void prompt()
+void d_prompt()
 {
     printf("$ ");
     fflush(stdout);
