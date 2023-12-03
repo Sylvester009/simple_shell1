@@ -1,9 +1,6 @@
 #include "main.h"
 
-void prompt();
-
-int main(void)
-{
+int main(void) {
     char *input;
     size_t len;
     pid_t pid;
@@ -13,74 +10,51 @@ int main(void)
 
     char *env[] = {NULL};
 
-    while (1)
-    {
-        prompt();
+    while (1) {
+        printf("$ ");  // Print prompt
+        fflush(stdout);
 
-       input = my_getline();
+        input = my_getline();
 
         if (input == NULL) {
             printf("\n");
             break;
         }
-        
+
         len = strlen(input);
-        if (len > 0 && input[len - 1] == '\n')
-        {
+        if (len > 0 && input[len - 1] == '\n') {
             input[len - 1] = '\0';
         }
 
         pid = fork();
 
-        if (pid == -1)
-        {
+        if (pid == -1) {
             perror("fork");
             exit(EXIT_FAILURE);
-        }
-        else if (pid == 0)
-        {
+        } else if (pid == 0) {
             /** Child process */
             tokenize(input, args);
-
-            if (strcmp(args[0], "exit") == 0)
-            {
-                handle_exit(0);
-            }
-            else if (strcmp(args[0], "env") == 0)
-            {
-                handle_env();
-            }
-
             execve(args[0], args, env);
 
             /** If execve fails */
             perror("execve");
             exit(EXIT_FAILURE);
-        }
-        else
-        {
+        } else {
             /** Parent process */
             waitpid(pid, &status, 0);
 
-            if (WIFEXITED(status))
-            {
+            if (WIFEXITED(status)) {
                 /** Child process terminated normally */
-                printf("%d\n", WEXITSTATUS(status));
-            }
-            else if (WIFSIGNALED(status))
-            {
+                printf("Child process exited with status %d\n", WEXITSTATUS(status));
+            } else if (WIFSIGNALED(status)) {
                 /** Child process terminated by a signal */
-                printf(" %d\n", WTERMSIG(status));
+                printf("Child process terminated by signal %d\n", WTERMSIG(status));
             }
         }
-        waitpid(pid, &status, 0);
+
+        // Free the memory allocated by my_getline
+        free(input);
     }
 
     return 0;
-}
-
-void prompt()
-{
-    printf("$ ");
-    fflush(stdout);
 }
