@@ -4,7 +4,9 @@ void handle_env()
 {
     extern char **environ;
 
-    for (char **env = environ; *env != NULL; env++)
+    char **env = environ;
+
+    for (*env != NULL; env++)
     {
         printf("%s\n", *env);
     }
