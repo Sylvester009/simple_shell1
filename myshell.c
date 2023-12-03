@@ -11,6 +11,8 @@ int main(void)
 
     char *args[MAX_SIZE]; /** Assuming a maximum number of arguments */
 
+    char *env[] = {NULL};
+
     while (1)
     {
         prompt();
