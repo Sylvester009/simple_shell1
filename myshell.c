@@ -73,6 +73,7 @@ int main(void)
                 printf(" %d\n", WTERMSIG(status));
             }
         }
+        waitpid(pid, &status, 0);
     }
 
     return 0;
