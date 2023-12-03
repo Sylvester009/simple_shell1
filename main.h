@@ -12,5 +12,6 @@
 
 void tokenize(char *input, char *args[]);
 void handle_exit();
+void handle_env()
 
 #endif
