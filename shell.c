@@ -29,7 +29,7 @@ int main(void)
             input[len - 1] = '\0';
         }
 
-        if (strcmp(input, "/bin/ls") == 0)
+        if ((strcmp(input, "/bin/ls") == 0) || (strcmp(input, "ls") == 0))
         {
             pid = fork();
 
