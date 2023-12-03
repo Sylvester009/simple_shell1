@@ -77,7 +77,7 @@ void prompt()
 
 void tokenize_input(char *input, char *args[])
 {
-    /** Use strtok to split the input into tokens */
+    /** Use strtok to split the input into tokens*/
     char *token = strtok(input, " ");
     int i = 0;
 
