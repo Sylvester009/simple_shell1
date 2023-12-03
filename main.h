@@ -13,5 +13,6 @@
 void tokenize(char *input, char *args[]);
 void handle_exit(int status);
 void handle_env();
+char *my_getline(void);
 
 #endif
