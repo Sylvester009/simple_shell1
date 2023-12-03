@@ -4,7 +4,7 @@ void prompt();
 
 int main(void)
 {
-    char input[MAX_SIZE];
+    char *input;
     size_t len;
     pid_t pid;
     int status;
