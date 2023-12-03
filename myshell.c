@@ -43,7 +43,11 @@ int main(void)
 
             if (strcmp(args[0], "exit") == 0)
             {
-                handle_exit();
+                handle_exit(0);
+            }
+            else (strcmp(args[0], "env") == 0)
+            {
+                handle_env();
             }
 
             execve(args[0], args, env);
