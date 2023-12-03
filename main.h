@@ -12,6 +12,6 @@
 
 void tokenize(char *input, char *args[]);
 void handle_exit(int status);
-void handle_env()
+void handle_env();
 
 #endif
