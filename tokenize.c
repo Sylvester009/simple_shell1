@@ -9,14 +9,14 @@ void tokenize(char *input, char *args[])
 
     while (input[start] != '\0' && i < MAX_SIZE - 1)
     {
-        while (input[start] == ' ')
+        while (input[start] == ' ' || input[start] == '\t')
         {
             start++;
         }
 
         /** Find the end of the current token*/
         end = start;
-        while (input[end] != '\0' && input[end] != ' ')
+        while (input[end] != '\0' && input[end] != ' ' && input[end] != '\t')
         {
             end++;
         }
