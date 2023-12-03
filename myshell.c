@@ -20,7 +20,6 @@ int main(void)
        input = my_getline();
 
         if (input == NULL) {
-            printf("\n");
             break;
         }
         
