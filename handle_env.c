@@ -6,9 +6,10 @@ void handle_env()
 
     char **env = environ;
 
-    for (*env != NULL)
+    while (*env != NULL)
     {
         printf("%s\n", *env);
-         env++;
+        env++;
     }
 }
+
