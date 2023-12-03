@@ -1,7 +1,6 @@
 #include "main.h"
 
 void prompt();
-void tokenize_input(char *input, char *args[]);
 
 int main(void)
 {
@@ -40,7 +39,12 @@ int main(void)
         else if (pid == 0)
         {
             /** Child process */
-            tokenize_input(input, args);
+            tokenize(input, args);
+
+            if (strcmp(args[0], "exit") == 0)
+            {
+                handle_exit();
+            }
 
             execve(args[0], args, env);
 
@@ -56,12 +60,12 @@ int main(void)
             if (WIFEXITED(status))
             {
                 /** Child process terminated normally */
-                printf("Child process exited with status %d\n", WEXITSTATUS(status));
+                printf("%d\n", WEXITSTATUS(status));
             }
             else if (WIFSIGNALED(status))
             {
                 /** Child process terminated by a signal */
-                printf("Child process terminated by signal %d\n", WTERMSIG(status));
+                printf(" %d\n", WTERMSIG(status));
             }
         }
     }
@@ -73,19 +77,4 @@ void prompt()
 {
     printf("$ ");
     fflush(stdout);
-}
-
-void tokenize_input(char *input, char *args[])
-{
-    /** Use strtok to split the input into tokens*/
-    char *token = strtok(input, " ");
-    int i = 0;
-
-    while (token != NULL)
-    {
-        args[i++] = token;
-        token = strtok(NULL, " ");
-    }
-
-    args[i] = NULL; /** Set the last element to NULL to terminate the args array*/
 }
