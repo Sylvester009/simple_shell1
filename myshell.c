@@ -11,7 +11,7 @@ int main(void) {
     char *env[] = {NULL};
 
     while (1) {
-        printf("$ ");  // Print prompt
+        printf("$ ");  /** Print prompt*/
         fflush(stdout);
 
         input = my_getline();
@@ -52,7 +52,7 @@ int main(void) {
             }
         }
 
-        // Free the memory allocated by my_getline
+        /** Free the memory allocated by my_getline*/
         free(input);
     }
 
