@@ -11,8 +11,6 @@ int main(void)
 
     char *args[MAX_SIZE]; /** Assuming a maximum number of arguments */
 
-    char *env[] = {NULL};
-
     while (1)
     {
         prompt();
@@ -45,7 +43,7 @@ int main(void)
             {
                 handle_exit(0);
             }
-            else (strcmp(args[0], "env") == 0)
+            else if (strcmp(args[0], "env") == 0)
             {
                 handle_env();
             }
