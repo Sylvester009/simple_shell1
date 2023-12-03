@@ -17,12 +17,13 @@ int main(void)
     {
         prompt();
 
-        if (fgets(input, sizeof(input), stdin) == NULL)
-        {
+       input = my_getline();
+
+        if (input == NULL) {
             printf("\n");
             break;
         }
-
+        
         len = strlen(input);
         if (len > 0 && input[len - 1] == '\n')
         {
