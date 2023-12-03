@@ -1,3 +1,5 @@
+include "main.h"
+
 void tokenize(char *input, char *args[])
 {
     /** Use strtok to split the input into tokens*/
