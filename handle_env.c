@@ -9,6 +9,6 @@ void handle_env()
     for (*env != NULL;)
     {
         printf("%s\n", *env);
-         env++
+         env++;
     }
 }
