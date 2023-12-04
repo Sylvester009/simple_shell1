@@ -2,19 +2,11 @@
 
 void tokenize(char *input, char *args[]) {
     int i = 0;
-    char *token = input;
+    char *token = strtok(input, " \t\n");
 
-    while (*token != '\0') {
-        while (*token == ' ' || *token == '\t' || *token == '\n') {
-            *token = '\0';
-            token++;
-        }
-
+    while (token != NULL && i < MAX_SIZE - 1) {
         args[i++] = token;
-
-        while (*token != '\0' && *token != ' ' && *token != '\t' && *token != '\n') {
-            token++;
-        }
+        token = strtok(NULL, " \t\n");
     }
 
     args[i] = NULL;
