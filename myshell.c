@@ -1,7 +1,7 @@
 #include "main.h"
 
 int main(void) {
-    char *input;
+    char input[MAX_SIZE];
     size_t len;
     pid_t pid;
     int status;
@@ -14,9 +14,8 @@ int main(void) {
         printf("$ ");  /** Print prompt*/
         fflush(stdout);
 
-        input = my_getline();
 
-        if (input == NULL) {
+        if if (fgets(input, sizeof(input), stdin) == NULL) {
             printf("\n");
             break;
         }
