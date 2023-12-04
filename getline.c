@@ -5,6 +5,8 @@ char *my_getline(void) {
     static size_t buffer_index = 0;
     static size_t buffer_size = 0;
 
+    size_t line_length = 0;
+
     char *line = malloc(line_length + 1);
 
     /**Check if the buffer needs to be filled*/
@@ -19,7 +21,6 @@ char *my_getline(void) {
     }
 
     
-    size_t line_length = 0;
     while (buffer_index + line_length < buffer_size && buffer[buffer_index + line_length] != '\n') {
         line_length++;
     }
