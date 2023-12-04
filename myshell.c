@@ -4,7 +4,7 @@ void prompt();
 
 int main(void)
 {
-    char input[MAX_SIZE];
+    char *input = NULL;  // Using dynamic memory for input
     size_t len;
     pid_t pid;
     int status;
@@ -17,13 +17,14 @@ int main(void)
     {
         prompt();
 
-        if (fgets(input, sizeof(input), stdin) == NULL)
+        if (getline(&input, &len, stdin) == -1)
         {
+            // Handle error or end-of-file
+            free(input);
             printf("\n");
             break;
         }
 
-        len = strlen(input);
         if (len > 0 && input[len - 1] == '\n')
         {
             input[len - 1] = '\0';
@@ -34,6 +35,7 @@ int main(void)
         if (pid == -1)
         {
             perror("fork");
+            free(input);
             exit(EXIT_FAILURE);
         }
         else if (pid == 0)
@@ -43,10 +45,12 @@ int main(void)
 
             if (strcmp(args[0], "exit") == 0)
             {
+                free(input);
                 handle_exit(0);
             }
             else if (strcmp(args[0], "env") == 0)
             {
+                free(input);
                 handle_env();
             }
 
@@ -54,6 +58,7 @@ int main(void)
 
             /** If execve fails */
             perror("execve");
+            free(input);
             exit(EXIT_FAILURE);
         }
         else
@@ -74,6 +79,7 @@ int main(void)
         }
     }
 
+    free(input); // Free allocated memory
     return 0;
 }
 
