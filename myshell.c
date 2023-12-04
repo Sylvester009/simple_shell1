@@ -28,6 +28,8 @@ int main(void) {
             break;
         }
 
+        len = strlen(input);
+
         if (len > 0 && input[len - 1] == '\n') {
             input[len - 1] = '\0';
         }
