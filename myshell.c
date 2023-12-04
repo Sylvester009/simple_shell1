@@ -15,7 +15,14 @@ int main(void) {
     while (1) {
         prompt();
 
-        if (getline(&input, &len, stdin) == -1) {
+        /**if (getline(&input, &len, stdin) == -1) {
+            free(input);
+            printf("\n");
+            break;
+        }*/
+        input = my_getline();
+
+        if (input == NULL) {
             free(input);
             printf("\n");
             break;
