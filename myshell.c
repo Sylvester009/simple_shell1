@@ -19,7 +19,7 @@ int main(void)
 
         if (getline(&input, &len, stdin) == -1)
         {
-            // Handle error or end-of-file
+            
             free(input);
             printf("\n");
             break;
@@ -79,7 +79,7 @@ int main(void)
         }
     }
 
-    free(input); // Free allocated memory
+    free(input); 
     return 0;
 }
 
