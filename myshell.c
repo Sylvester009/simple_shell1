@@ -46,7 +46,7 @@ int main(void) {
 
             if (strcmp(args[0], "exit") == 0) {
                 free(input);
-                handle_exit(0);
+                exit_shell();
             } else if (strcmp(args[0], "env") == 0) {
                 free(input);
                 handle_env();
