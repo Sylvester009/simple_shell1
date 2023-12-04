@@ -11,7 +11,7 @@
 #define MAX_SIZE 1024
 
 void tokenize(char *input, char *args[]);
-void handle_exit(int status);
+int exit_shell();
 void handle_env();
 char *my_getline(void);
 
