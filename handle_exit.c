@@ -7,7 +7,7 @@ int exit_shell() {
     int exit_status;
     int input_valid;
 
-    char *exit_input
+    char *exit_input;
 
     do {
         input_valid = 1;  /* Assume input is valid */
