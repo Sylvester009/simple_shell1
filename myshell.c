@@ -4,7 +4,7 @@ void prompt();
 
 int main(void)
 {
-    char *input = NULL;  // Using dynamic memory for input
+    char *input = NULL; 
     size_t len;
     pid_t pid;
     int status;
