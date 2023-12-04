@@ -15,7 +15,7 @@ int main(void) {
         fflush(stdout);
 
 
-        if if (fgets(input, sizeof(input), stdin) == NULL) {
+        if (fgets(input, sizeof(input), stdin) == NULL) {
             printf("\n");
             break;
         }
