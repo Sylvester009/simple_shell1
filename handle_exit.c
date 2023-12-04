@@ -1,8 +1,13 @@
 #include "main.h"
+#include <ctype.h>
+
+int str_integer(const char *str);
 
 int exit_shell() {
     int exit_status;
     int input_valid;
+
+    char *exit_input
 
     do {
         input_valid = 1;  /* Assume input is valid */
@@ -11,7 +16,7 @@ int exit_shell() {
         printf("Enter exit status: ");
         fflush(stdout);
 
-        char *exit_input = my_getline();
+        exit_input = my_getline();
 
         if (!exit_input) {
             printf("\n");
@@ -37,4 +42,27 @@ int exit_shell() {
     } while (!input_valid);
 
     return -2;
+}
+
+int str_integer(const char *str) {
+    int result = 0;
+    int sign = 1; 
+
+    /**Skip leading whitespace*/
+    while (isspace(*str)) {
+        str++;
+    }
+
+    /**Check for sign*/
+    if (*str == '+' || *str == '-') {
+        sign = (*str++ == '-') ? -1 : 1;
+    }
+
+    /** Process digits*/
+    while (isdigit(*str)) {
+        result = result * 10 + (*str - '0');
+        str++;
+    }
+
+    return result * sign;
 }
