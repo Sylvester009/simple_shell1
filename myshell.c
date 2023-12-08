@@ -36,6 +36,11 @@ int main(void) {
             input[len - 1] = '\0';
         }
 
+        if (access(input, X_OK) != 0) {
+            printf("Command not found: %s\n", input);
+            continue; 
+        }
+
         pid = fork();
 
         if (pid == -1) {
