@@ -36,6 +36,11 @@ int main(void) {
             input[len - 1] = '\0';
         }
 
+        if (strcmp(input, "exit") == 0) {
+            free(input);
+            exit_shell(); 
+        }
+
         if (access(input, X_OK) != 0) {
             printf("Command not found: %s\n", input);
             continue; 
@@ -50,13 +55,11 @@ int main(void) {
         } else if (pid == 0) {
             /** Child process */
             tokenize(input, args);
-
-            if (strcmp(args[0], "exit") == 0) {
-                free(input);
-                exit_shell();
-            } else if (strcmp(args[0], "env") == 0) {
+            
+            if (strcmp(args[0], "env") == 0) {
                 free(input);
                 handle_env();
+                exit(EXIT_SUCCESS);
             }
 
             execve(args[0], args, env);
