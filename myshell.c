@@ -15,12 +15,12 @@ int main(void) {
     while (1) {
         prompt();
 
-        if (getline(&input, &len, stdin) == -1) {
+        /**if (getline(&input, &len, stdin) == -1) {
             free(input);
             printf("\n");
             break;
-        }
-        /**
+        }*/
+        
         input = my_getline();
 
         if (input == NULL) {
@@ -30,7 +30,7 @@ int main(void) {
         }
 
         len = strlen(input);
-        */
+        
 
         if (len > 0 && input[len - 1] == '\n') {
             input[len - 1] = '\0';
