@@ -42,7 +42,7 @@ int exit_shell() {
 
     } while (!input_valid);
 
-    return -2;
+    return 0;
 }
 
 int str_integer(const char *str) {
