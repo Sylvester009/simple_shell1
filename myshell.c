@@ -49,7 +49,7 @@ int main(void) {
 
             if (strcmp(args[0], "exit") == 0) {
                 free(input);
-                int exit_stats = exit_shell();
+                exit_stats = exit_shell();
                 exit(exit_stats);
             } else if (strcmp(args[0], "env") == 0) {
                 free(input);
