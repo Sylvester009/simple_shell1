@@ -19,6 +19,7 @@ int exit_shell() {
         exit_input = my_getline();
 
         if (!exit_input) {
+            free(exit_input);
             printf("\n");
             break;
         }
