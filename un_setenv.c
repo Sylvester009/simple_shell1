@@ -1,31 +1,13 @@
 #include "main.h"
 
 /**
- * get_environment - Returns a copy of the environment variables as a string array.
- * @inform: Structure containing potential arguments. Used to maintain
- *          constant function prototype.
- * Return: The string array copy of the environment variables.
- */
-char **get_environment(inform_t *inform)
-{
-    if (!inform->environ || inform->env_changed)
-    {
-        inform->environ = convert_list_to_strings(inform->env);
-        inform->env_changed = 0;
-    }
-
-    return (inform->environ);
-}
-
-/**
  * _unsetenv - Removes an environment variable.
  * @inform: Structure containing potential arguments. Used to maintain
  *          constant function prototype.
  * @var: The environment variable to be removed.
  * Return: 1 if the variable is deleted, 0 otherwise.
  */
-int _unsetenv(inform_t *inform, char *var)
-{
+int _unsetenv(inform_t *inform, char *var) {
     list_t *node = inform->env;
     list_t *prev = NULL;
     char *p;
@@ -33,11 +15,9 @@ int _unsetenv(inform_t *inform, char *var)
     if (!node || !var)
         return (0);
 
-    while (node)
-    {
+    while (node) {
         p = it_starts_with(node->str, var);
-        if (p && *p == '=')
-        {
+        if (p && *p == '=') {
             if (!prev)
                 inform->env = node->next;
             else
@@ -62,8 +42,7 @@ int _unsetenv(inform_t *inform, char *var)
  * @value: The value of the environment variable.
  * Return: Always 0.
  */
-int _setenv(inform_t *inform, char *var, char *value)
-{
+int _setenv(inform_t *inform, char *var, char *value) {
     char *buf = NULL;
     list_t *node;
     char *p;
@@ -78,11 +57,9 @@ int _setenv(inform_t *inform, char *var, char *value)
     _strcat(buf, "=");
     _strcat(buf, value);
     node = inform->env;
-    while (node)
-    {
+    while (node) {
         p = it_starts_with(node->str, var);
-        if (p && *p == '=')
-        {
+        if (p && *p == '=') {
             free(node->str);
             node->str = buf;
             inform->env_changed = 1;
