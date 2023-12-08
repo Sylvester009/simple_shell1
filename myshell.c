@@ -48,7 +48,7 @@ int main(void) {
             tokenize(input, args);
 
             if (strcmp(args[0], "exit") == 0) {
-                free(input);
+                
                 exit_stats = exit_shell();
                 exit(exit_stats);
             } else if (strcmp(args[0], "env") == 0) {
