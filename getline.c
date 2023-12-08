@@ -7,13 +7,13 @@ char *my_getline(void) {
 
     size_t line_length = 0;
 
-    char *line = malloc(line_length + 1);
+    char *line;
 
     /**Check if the buffer needs to be filled*/
     if (buffer_index >= buffer_size) {
-        buffer_size = fread(buffer, 1, MAX_SIZE, stdin);
+        buffer_size = read(STDIN_FILENO, buffer, MAX_SIZE);
 
-        if (buffer_size == 0) {
+        if (buffer_size <= 0) {
             return NULL;
         }
 
@@ -25,6 +25,7 @@ char *my_getline(void) {
         line_length++;
     }
 
+    line = malloc(line_length + 1);
     if (line == NULL) {
         fprintf(stderr, "Memory allocation error\n");
         exit(EXIT_FAILURE);
