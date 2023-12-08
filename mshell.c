@@ -3,6 +3,8 @@
 void prompt();
 
 int search_path(const char *command, char *full_path) {
+char *token;
+    
     /* Get the value of the PATH environment variable*/
     char *path = getenv("PATH");
     if (path == NULL) {
@@ -11,21 +13,21 @@ int search_path(const char *command, char *full_path) {
     }
 
     /* Tokenize the PATH variable to get individual directories*/
-    char *token = strtok(path, ":");
+    token = strtok(path, ":");
     while (token != NULL) {
         /* Construct the full path of the command*/
         snprintf(full_path, MAX_SIZE, "%s/%s", token, command);
 
         /* Check if the command exists at the current path*/
         if (access(full_path, X_OK) == 0) {
-            return 0;  // Command found
+            return 0; 
         }
 
         /* Move to the next directory in PATH*/
         token = strtok(NULL, ":");
     }
 
-    return -1;  
+    return (-1);  
 }
 
 int main(void) {
@@ -33,6 +35,8 @@ int main(void) {
     size_t len;
     pid_t pid;
     int status;
+
+    extern char **environ;
 
     char *args[MAX_SIZE];
     char full_path[MAX_SIZE];
