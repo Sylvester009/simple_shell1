@@ -13,7 +13,7 @@
 typedef struct list_node {
     char *str;                 
     struct list_node *next;    
-} inform_t;
+} list_t;
 
 void tokenize(char *input, char *args[]);
 int exit_shell();
