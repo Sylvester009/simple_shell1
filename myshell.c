@@ -10,11 +10,18 @@ int main(void) {
     int exit_stats;
 
     char *args[MAX_SIZE];
+
     char *env[] = {NULL};
 
     while (1) {
         prompt();
 
+        /**if (getline(&input, &len, stdin) == -1) {
+            free(input);
+            printf("\n");
+            break;
+        }*/
+        
         input = my_getline();
 
         if (input == NULL) {
@@ -24,6 +31,7 @@ int main(void) {
         }
 
         len = strlen(input);
+        
 
         if (len > 0 && input[len - 1] == '\n') {
             input[len - 1] = '\0';
@@ -40,26 +48,12 @@ int main(void) {
             tokenize(input, args);
 
             if (strcmp(args[0], "exit") == 0) {
+                
                 exit_stats = exit_shell();
                 exit(exit_stats);
             } else if (strcmp(args[0], "env") == 0) {
+                free(input);
                 handle_env();
-            } else if (strcmp(args[0], "setenv") == 0) {
-                if (args[1] && args[2]) {
-                    _setenv(&inform, args[1], args[2]);
-                } else {
-                    fprintf(stderr, "Usage: setenv VARIABLE VALUE\n");
-                }
-                free(input);
-                exit(EXIT_SUCCESS);  // Exit the child process after setenv
-            } else if (strcmp(args[0], "unsetenv") == 0) {
-                if (args[1]) {
-                    _unsetenv(&inform, args[1]);
-                } else {
-                    fprintf(stderr, "Usage: unsetenv VARIABLE\n");
-                }
-                free(input);
-                exit(EXIT_SUCCESS);  // Exit the child process after unsetenv
             }
 
             execve(args[0], args, env);
