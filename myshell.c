@@ -7,6 +7,7 @@ int main(void) {
     size_t len;
     pid_t pid;
     int status;
+    int exit_stats;
 
     char *args[MAX_SIZE];
 
@@ -48,7 +49,8 @@ int main(void) {
 
             if (strcmp(args[0], "exit") == 0) {
                 free(input);
-                exit_shell();
+                int exit_stats = exit_shell();
+                exit(exit_stats);
             } else if (strcmp(args[0], "env") == 0) {
                 free(input);
                 handle_env();
