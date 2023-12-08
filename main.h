@@ -14,5 +14,8 @@ void tokenize(char *input, char *args[]);
 int exit_shell();
 void handle_env();
 char *my_getline(void);
+char **get_environment(inform_t *inform);
+int _unsetenv(inform_t *inform, char *var);
+int _setenv(inform_t *inform, char *var, char *value);
 
 #endif
